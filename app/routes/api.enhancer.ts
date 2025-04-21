@@ -30,6 +30,7 @@ async function enhancerAction({ context, request }: ActionFunctionArgs) {
         },
       ],
       context.cloudflare.env,
+      request.url.split('=')[1]
     );
 
     const transformStream = new TransformStream({

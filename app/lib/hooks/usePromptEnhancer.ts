@@ -16,7 +16,7 @@ export function usePromptEnhancer() {
     setEnhancingPrompt(true);
     setPromptEnhanced(false);
 
-    const response = await fetch('/api/enhancer', {
+    const response = await fetch(`/api/enhancer?key=${localStorage.getItem("bolt_api_key")}`, {
       method: 'POST',
       body: JSON.stringify({
         message: input,

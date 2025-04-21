@@ -75,8 +75,15 @@ export const ChatImpl = memo(({ initialMessages, storeMessageHistory }: ChatProp
 
   const [animationScope, animate] = useAnimate();
 
+  useEffect(()=>{
+    if(!localStorage.getItem("bolt_api_key")){
+      const key = prompt("Please paste your Anthrophic API Key to Continue.");
+      if(key) localStorage.setItem("bolt_api_key", key);
+    }
+  }, [])
+
   const { messages, isLoading, input, handleInputChange, setInput, stop, append } = useChat({
-    api: '/api/chat',
+    api: `/api/chat?key=${localStorage.getItem("bolt_api_key")}`,
     onError: (error) => {
       logger.error('Request failed\n\n', error);
       toast.error('There was an error processing your request');
